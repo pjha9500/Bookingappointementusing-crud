@@ -1,3 +1,4 @@
+console.log("hello");
 let data=document.getElementById('formbox');
 console.log(data);
 
@@ -12,6 +13,7 @@ class datas
 }
 
 
+
 data.addEventListener('submit',xyz);
 function xyz(e)
 {
@@ -22,7 +24,7 @@ function xyz(e)
 
     axios({
         method:'post',
-        url:'https://crudcrud.com/api/62e0228592bd4c2fa98b46965328a40b/booking_data',
+        url:'https://crudcrud.com/api/d068e3d510484d7e941e8e88e59ade6b/booking_data',
         data:datat
     }).then((res)=>showfunction(res.data));
         // localStorage.setItem(`userDetails${document.getElementById('email').value}`,JSON.stringify(datat));
@@ -30,17 +32,29 @@ function xyz(e)
 }
 axios({
     method:'get',
-    url:'https://crudcrud.com/api/62e0228592bd4c2fa98b46965328a40b/booking_data',
+    url:'https://crudcrud.com/api/d068e3d510484d7e941e8e88e59ade6b/booking_data',
 }).then((res)=> showfunction(res.data));
 
 function showfunction(res)
 {
     for(let i=0;i<res.length;i++)
     {
+        let dt=res[i]._id;
         let data=document.createElement('li');
-        data.innerHTML=`<li>${res[i].name}-----${res[i].email}--<button>Delete</button>-<button>Edit</button></li>`
+        data.innerHTML=`<li>${res[i].name}-----${res[i].email}--<button class="deletes" onclick=deletes('${dt}')>Delete</button>-<button>Edit</button></li>`
         document.getElementById('showdata').appendChild(data);
     }
 
 
 }
+function deletes(datasx)
+{
+        axios({
+        method:'delete',
+        url:`https://crudcrud.com/api/d068e3d510484d7e941e8e88e59ade6b/booking_data/${datasx}`
+    }).then((res)=>console.log(res));
+    location.reload();
+
+
+}
+
