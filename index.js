@@ -12,7 +12,6 @@ class datas
 }
 
 
-
 data.addEventListener('submit',xyz);
 function xyz(e)
 {
@@ -25,11 +24,23 @@ function xyz(e)
         method:'post',
         url:'https://crudcrud.com/api/62e0228592bd4c2fa98b46965328a40b/booking_data',
         data:datat
-    }).then((res)=>console.log(res))
+    }).then((res)=>showfunction(res.data));
         // localStorage.setItem(`userDetails${document.getElementById('email').value}`,JSON.stringify(datat));
-        // location.reload();
+        location.reload();
 }
 axios({
     method:'get',
-    url:'https://crudcrud.com/api/62e0228592bd4c2fa98b46965328a40b/booking_data'
-}).then((res)=>console.log(res));
+    url:'https://crudcrud.com/api/62e0228592bd4c2fa98b46965328a40b/booking_data',
+}).then((res)=> showfunction(res.data));
+
+function showfunction(res)
+{
+    for(let i=0;i<res.length;i++)
+    {
+        let data=document.createElement('li');
+        data.innerHTML=`<li>${res[i].name}-----${res[i].email}--<button>Delete</button>-<button>Edit</button></li>`
+        document.getElementById('showdata').appendChild(data);
+    }
+
+
+}
